@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Gastos</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Control de Gastos Personales</h1>
+
+        <form id="expense-form">
+            <input type="text" id="description" placeholder="Descripción" required>
+            <input type="number" id="amount" step="0.01" placeholder="Monto" required>
+            <input type="text" id="category" placeholder="Categoría" required>
+            <input type="date" id="date" required>
+            <button type="submit">Agregar Gasto</button>
+        </form>
+
+        <h2>Gastos</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Descripción</th>
+                    <th>Monto</th>
+                    <th>Categoría</th>
+                    <th>Fecha</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody id="expense-list">
+                <!-- Expenses will be dynamically added here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
