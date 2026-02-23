@@ -36,7 +36,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const expenses = await response.json();
 
         expenseList.innerHTML = '';
+        let totalAmount = 0;
+
         expenses.forEach(expense => {
+            totalAmount += parseFloat(expense.amount);
             const row = document.createElement('tr');
 
             const descCell = document.createElement('td');
@@ -65,6 +68,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             expenseList.appendChild(row);
         });
+
+        document.getElementById('total-amount').textContent = totalAmount.toFixed(2);
     }
 
     // Delete expense function
