@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('expense-form');
     const expenseList = document.getElementById('expense-list');
+    const totalAmountElement = document.getElementById('total-amount');
 
     // Fetch and display expenses
     fetchExpenses();
@@ -36,7 +37,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const expenses = await response.json();
 
         expenseList.innerHTML = '';
+        let total = 0;
+
         expenses.forEach(expense => {
+            total += parseFloat(expense.amount);
             const row = document.createElement('tr');
 
             const descCell = document.createElement('td');
@@ -65,6 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             expenseList.appendChild(row);
         });
+        totalAmountElement.textContent = total.toFixed(2);
     }
 
     // Delete expense function
