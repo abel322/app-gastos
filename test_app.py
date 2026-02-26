@@ -51,6 +51,40 @@ class ExpenseTrackerTestCase(unittest.TestCase):
         self.assertEqual(len(data), 1)
         self.assertEqual(data[0]['description'], 'Test Expense')
 
+    def test_update_expense(self):
+        # Add an expense first
+        response = self.app.post('/expenses',
+                                 data=json.dumps({
+                                     'description': 'Test Expense',
+                                     'amount': 10.0,
+                                     'category': 'Test Category',
+                                     'date': '2023-10-01'
+                                 }),
+                                 content_type='application/json')
+        data = json.loads(response.data)
+        expense_id = data['id']
+
+        # Update the expense
+        response = self.app.put(f'/expenses/{expense_id}',
+                                data=json.dumps({
+                                    'description': 'Updated Expense',
+                                    'amount': 20.0,
+                                    'category': 'Updated Category',
+                                    'date': '2023-10-02'
+                                }),
+                                content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        data = json.loads(response.data)
+        self.assertEqual(data['description'], 'Updated Expense')
+        self.assertEqual(data['amount'], 20.0)
+
+        # Verify it's updated
+        response = self.app.get('/expenses')
+        data = json.loads(response.data)
+        self.assertEqual(len(data), 1)
+        self.assertEqual(data[0]['description'], 'Updated Expense')
+        self.assertEqual(data[0]['amount'], 20.0)
+
     def test_delete_expense(self):
         # Add an expense first
         response = self.app.post('/expenses',
