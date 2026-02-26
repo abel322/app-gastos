@@ -55,6 +55,29 @@ def add_expense():
 
     return jsonify({'id': new_id, 'description': description, 'amount': amount, 'category': category, 'date': date}), 201
 
+@app.route('/expenses/<int:id>', methods=['PUT'])
+def update_expense(id):
+    data = request.get_json()
+    description = data.get('description')
+    amount = data.get('amount')
+    category = data.get('category')
+    date = data.get('date')
+
+    if not description or not amount or not category or not date:
+        return jsonify({'error': 'Missing fields'}), 400
+
+    conn = sqlite3.connect(DB_NAME)
+    cursor = conn.cursor()
+    cursor.execute('UPDATE expenses SET description = ?, amount = ?, category = ?, date = ? WHERE id = ?',
+                   (description, amount, category, date, id))
+    if cursor.rowcount == 0:
+        conn.close()
+        return jsonify({'error': 'Expense not found'}), 404
+    conn.commit()
+    conn.close()
+
+    return jsonify({'id': id, 'description': description, 'amount': amount, 'category': category, 'date': date}), 200
+
 @app.route('/expenses/<int:id>', methods=['DELETE'])
 def delete_expense(id):
     conn = sqlite3.connect(DB_NAME)

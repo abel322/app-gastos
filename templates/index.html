@@ -11,12 +11,25 @@
         <h1>Control de Gastos Personales</h1>
 
         <form id="expense-form">
+            <input type="hidden" id="expense-id">
             <input type="text" id="description" placeholder="Descripción" required>
             <input type="number" id="amount" step="0.01" placeholder="Monto" required>
-            <input type="text" id="category" placeholder="Categoría" required>
+            <select id="category" required>
+                <option value="" disabled selected>Categoría</option>
+                <option value="Comida">Comida</option>
+                <option value="Transporte">Transporte</option>
+                <option value="Entretenimiento">Entretenimiento</option>
+                <option value="Servicios">Servicios</option>
+                <option value="Otros">Otros</option>
+            </select>
             <input type="date" id="date" required>
-            <button type="submit">Agregar Gasto</button>
+            <button type="submit" id="submit-btn">Agregar Gasto</button>
+            <button type="button" id="cancel-btn" style="display:none;">Cancelar</button>
         </form>
+
+        <div id="total-container">
+            <h3>Total: $<span id="total-amount">0.00</span></h3>
+        </div>
 
         <h2>Gastos</h2>
         <table>
