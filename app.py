@@ -45,6 +45,10 @@ def add_expense():
     if not description or not amount or not category or not date:
         return jsonify({'error': 'Missing fields'}), 400
 
+    valid_categories = ['Comida', 'Transporte', 'Entretenimiento', 'Servicios', 'Otros']
+    if category not in valid_categories:
+        return jsonify({'error': 'Invalid category'}), 400
+
     conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()
     cursor.execute('INSERT INTO expenses (description, amount, category, date) VALUES (?, ?, ?, ?)',
