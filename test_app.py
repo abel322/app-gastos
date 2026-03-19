@@ -25,7 +25,7 @@ class ExpenseTrackerTestCase(unittest.TestCase):
                                  data=json.dumps({
                                      'description': 'Test Expense',
                                      'amount': 10.0,
-                                     'category': 'Test Category',
+                                     'category': 'Comida',
                                      'date': '2023-10-01'
                                  }),
                                  content_type='application/json')
@@ -33,6 +33,20 @@ class ExpenseTrackerTestCase(unittest.TestCase):
         data = json.loads(response.data)
         self.assertEqual(data['description'], 'Test Expense')
         self.assertEqual(data['amount'], 10.0)
+        self.assertEqual(data['category'], 'Comida')
+
+    def test_add_expense_invalid_category(self):
+        response = self.app.post('/expenses',
+                                 data=json.dumps({
+                                     'description': 'Test Expense',
+                                     'amount': 10.0,
+                                     'category': 'Invalid Category',
+                                     'date': '2023-10-01'
+                                 }),
+                                 content_type='application/json')
+        self.assertEqual(response.status_code, 400)
+        data = json.loads(response.data)
+        self.assertEqual(data['error'], 'Invalid category')
 
     def test_get_expenses(self):
         # Add an expense first
@@ -40,7 +54,7 @@ class ExpenseTrackerTestCase(unittest.TestCase):
                       data=json.dumps({
                           'description': 'Test Expense',
                           'amount': 10.0,
-                          'category': 'Test Category',
+                          'category': 'Transporte',
                           'date': '2023-10-01'
                       }),
                       content_type='application/json')
@@ -57,7 +71,7 @@ class ExpenseTrackerTestCase(unittest.TestCase):
                                  data=json.dumps({
                                      'description': 'Test Expense',
                                      'amount': 10.0,
-                                     'category': 'Test Category',
+                                     'category': 'Servicios',
                                      'date': '2023-10-01'
                                  }),
                                  content_type='application/json')
