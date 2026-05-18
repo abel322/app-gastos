@@ -55,30 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
             dateCell.textContent = expense.date;
             row.appendChild(dateCell);
 
-            const actionCell = document.createElement('td');
-            const deleteBtn = document.createElement('button');
-            deleteBtn.textContent = 'Eliminar';
-            deleteBtn.className = 'delete-btn';
-            deleteBtn.onclick = () => deleteExpense(expense.id);
-            actionCell.appendChild(deleteBtn);
-            row.appendChild(actionCell);
-
             expenseList.appendChild(row);
         });
     }
-
-    // Delete expense function
-    window.deleteExpense = async (id) => {
-        if (confirm('¿Estás seguro de que deseas eliminar este gasto?')) {
-            const response = await fetch(`/expenses/${id}`, {
-                method: 'DELETE'
-            });
-
-            if (response.ok) {
-                fetchExpenses();
-            } else {
-                alert('Error al eliminar el gasto');
-            }
-        }
-    };
 });
