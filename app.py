@@ -55,15 +55,6 @@ def add_expense():
 
     return jsonify({'id': new_id, 'description': description, 'amount': amount, 'category': category, 'date': date}), 201
 
-@app.route('/expenses/<int:id>', methods=['DELETE'])
-def delete_expense(id):
-    conn = sqlite3.connect(DB_NAME)
-    cursor = conn.cursor()
-    cursor.execute('DELETE FROM expenses WHERE id = ?', (id,))
-    conn.commit()
-    conn.close()
-    return jsonify({'message': 'Expense deleted'}), 200
-
 if __name__ == '__main__':
     init_db()
     app.run(debug=True, port=5000)

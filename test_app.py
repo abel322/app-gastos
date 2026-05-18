@@ -51,27 +51,5 @@ class ExpenseTrackerTestCase(unittest.TestCase):
         self.assertEqual(len(data), 1)
         self.assertEqual(data[0]['description'], 'Test Expense')
 
-    def test_delete_expense(self):
-        # Add an expense first
-        response = self.app.post('/expenses',
-                                 data=json.dumps({
-                                     'description': 'Test Expense',
-                                     'amount': 10.0,
-                                     'category': 'Test Category',
-                                     'date': '2023-10-01'
-                                 }),
-                                 content_type='application/json')
-        data = json.loads(response.data)
-        expense_id = data['id']
-
-        # Delete the expense
-        response = self.app.delete(f'/expenses/{expense_id}')
-        self.assertEqual(response.status_code, 200)
-
-        # Verify it's gone
-        response = self.app.get('/expenses')
-        data = json.loads(response.data)
-        self.assertEqual(len(data), 0)
-
 if __name__ == '__main__':
     unittest.main()
