@@ -13,7 +13,14 @@
         <form id="expense-form">
             <input type="text" id="description" placeholder="Descripción" required>
             <input type="number" id="amount" step="0.01" placeholder="Monto" required>
-            <input type="text" id="category" placeholder="Categoría" required>
+            <select id="category" required>
+                <option value="" disabled selected>Seleccione Categoría</option>
+                <option value="Comida">Comida</option>
+                <option value="Transporte">Transporte</option>
+                <option value="Entretenimiento">Entretenimiento</option>
+                <option value="Servicios">Servicios</option>
+                <option value="Otros">Otros</option>
+            </select>
             <input type="date" id="date" required>
             <button type="submit">Agregar Gasto</button>
         </form>
