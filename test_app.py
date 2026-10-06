@@ -25,7 +25,7 @@ class ExpenseTrackerTestCase(unittest.TestCase):
                                  data=json.dumps({
                                      'description': 'Test Expense',
                                      'amount': 10.0,
-                                     'category': 'Test Category',
+                                     'category': 'Comida',
                                      'date': '2023-10-01'
                                  }),
                                  content_type='application/json')
@@ -40,7 +40,7 @@ class ExpenseTrackerTestCase(unittest.TestCase):
                       data=json.dumps({
                           'description': 'Test Expense',
                           'amount': 10.0,
-                          'category': 'Test Category',
+                          'category': 'Comida',
                           'date': '2023-10-01'
                       }),
                       content_type='application/json')
@@ -57,7 +57,7 @@ class ExpenseTrackerTestCase(unittest.TestCase):
                                  data=json.dumps({
                                      'description': 'Test Expense',
                                      'amount': 10.0,
-                                     'category': 'Test Category',
+                                     'category': 'Comida',
                                      'date': '2023-10-01'
                                  }),
                                  content_type='application/json')
